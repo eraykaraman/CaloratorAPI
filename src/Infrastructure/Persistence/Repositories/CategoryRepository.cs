@@ -1,6 +1,7 @@
 ﻿using Application.Abstracts.Repositories;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Persistence.Repositories
 {
     public class CategoryRepository : GenericRepository<Category>, ICategoryRepository
     {
-        public CategoryRepository(DbContext dbContext) : base(dbContext)
+        public CategoryRepository(AppDbContext dbContext) : base(dbContext)
         {
         }
     }

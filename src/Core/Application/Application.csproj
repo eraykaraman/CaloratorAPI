@@ -22,6 +22,6 @@
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.2.0" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Features\" />
+	  <Folder Include="Features\Commands\" />
 	</ItemGroup>
 </Project>

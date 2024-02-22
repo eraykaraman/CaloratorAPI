@@ -1,6 +1,7 @@
 ﻿using Application.Abstracts.Repositories;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Persistence.Repositories
 {
     public class NutritionRepository : GenericRepository<Nutrition>, INutritionRepository
     {
-        public NutritionRepository(DbContext dbContext) : base(dbContext)
+        public NutritionRepository(AppDbContext dbContext) : base(dbContext)
         {
         }
     }
