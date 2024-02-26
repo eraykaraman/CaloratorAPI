@@ -1,4 +1,6 @@
-﻿using Application.Features.Queries.GetNutritions;
+﻿using Application.Features.Queries.GetCategories;
+using Application.Features.Queries.GetNutritionByName;
+using Application.Features.Queries.GetNutritions;
 using AutoMapper;
 using Domain.Models;
 using System;
@@ -14,6 +16,8 @@ namespace Application.Mapping
         public MappingProfile()
         {
             CreateMap<Nutrition, GetNutritionsQueryModel>();
+            CreateMap<Category, GetCategoriesQueryModel>();
+            
         }
     }
 }

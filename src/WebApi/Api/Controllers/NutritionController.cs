@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.Queries.GetNutritions;
+using Application.Features.Queries.GetNutritionByName;
 
 namespace Api.Controllers
 {
@@ -26,8 +27,23 @@ namespace Api.Controllers
             }
             catch (Exception ex)
             {
-                // Burada hata yakalama ve uygun bir HTTP yanıtı döndürme işlemleri yapılabilir
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Besinler listelenirken bir sorun oluştu.");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Search([FromQuery] GetNutritionsByNameQueryRequest request)
+        {
+            try
+            {
+                var result = await mediator.Send(request);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Besinler listelenirken bir sorun oluştu.");
+
             }
         }
     }
