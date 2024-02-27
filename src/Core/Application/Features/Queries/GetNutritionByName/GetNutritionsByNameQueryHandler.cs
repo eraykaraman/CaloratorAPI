@@ -22,6 +22,7 @@ namespace Application.Features.Queries.GetNutritionByName
         {
             var result = nutritionRepository
               .Get(i => EF.Functions.Like(i.Name, $"%{request.SearchText}%"))
+              .Take(10)
               .Select(i => new GetNutritionsByNameModel
               {
                   Id = i.Id,

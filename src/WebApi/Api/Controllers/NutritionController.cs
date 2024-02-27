@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.Queries.GetNutritions;
 using Application.Features.Queries.GetNutritionByName;
+using Application.Features.Queries.GetNutritionById;
 
 namespace Api.Controllers
 {
@@ -15,6 +16,21 @@ namespace Api.Controllers
         public NutritionController(IMediator mediator)
         {
             this.mediator = mediator;
+        }
+
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetNutritionById(Guid id)
+        {
+            try
+            {
+                var nutrition = await mediator.Send(new GetNutritionByIdQueryRequest(id));
+                return Ok(nutrition);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Besin listelenirken bir sorun oluştu.");
+            }
         }
 
         [HttpGet]
@@ -39,12 +55,13 @@ namespace Api.Controllers
                 var result = await mediator.Send(request);
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
                 return StatusCode(StatusCodes.Status500InternalServerError, "Besinler listelenirken bir sorun oluştu.");
-
             }
         }
+
+
+
     }
 }

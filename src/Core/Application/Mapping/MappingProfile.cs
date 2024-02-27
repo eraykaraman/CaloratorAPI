@@ -1,6 +1,10 @@
 ﻿using Application.Features.Queries.GetCategories;
+using Application.Features.Queries.GetCategoryById;
+using Application.Features.Queries.GetCategoryNutritions;
+using Application.Features.Queries.GetNutritionById;
 using Application.Features.Queries.GetNutritionByName;
 using Application.Features.Queries.GetNutritions;
+using Application.Features.Queries.GetUserDetail;
 using AutoMapper;
 using Domain.Models;
 using System;
@@ -17,6 +21,10 @@ namespace Application.Mapping
         {
             CreateMap<Nutrition, GetNutritionsQueryModel>();
             CreateMap<Category, GetCategoriesQueryModel>();
+            CreateMap<Nutrition, GetNutritionByIdQueryModel>();
+            CreateMap<Category, GetCategoryByIdQueryModel>();
+            CreateMap<User, GetUserDetailQueryModel>();
+            //CreateMap<List<Nutrition>, GetCategoryNutritionsQueryModel>().ReverseMap();
             
         }
     }

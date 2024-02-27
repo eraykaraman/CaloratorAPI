@@ -10,6 +10,5 @@ namespace Application.Features.Queries.GetNutritions
 {
     public class GetNutritionsQueryRequest : IRequest<List<GetNutritionsQueryModel>>
     {
-
     }
 }

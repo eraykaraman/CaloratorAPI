@@ -15,5 +15,6 @@ namespace Persistence.Repositories
         public NutritionRepository(AppDbContext dbContext) : base(dbContext)
         {
         }
+
     }
 }
