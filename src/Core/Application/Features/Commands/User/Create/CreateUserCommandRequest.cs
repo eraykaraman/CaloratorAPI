@@ -1,13 +1,13 @@
-﻿using Domain.Abstracts;
+﻿using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace Application.Features.Commands.User.Create
 {
-    public class User : BaseEntity
+    public class CreateUserCommandRequest : IRequest<Guid>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -17,6 +17,5 @@ namespace Domain.Models
         public float Height { get; set; }
         public float Weight { get; set; }
         public float Age { get; set; }
-        public bool IsEmailConfirmed { get; set; }
     }
 }

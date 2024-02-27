@@ -22,6 +22,7 @@
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.2.0" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Features\Commands\" />
+	  <Folder Include="Features\Commands\User\ChangePassword\" />
+	  <Folder Include="Features\Commands\User\Update\" />
 	</ItemGroup>
 </Project>

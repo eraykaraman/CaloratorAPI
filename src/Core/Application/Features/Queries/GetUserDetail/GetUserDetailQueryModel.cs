@@ -14,6 +14,9 @@ namespace Application.Features.Queries.GetUserDetail
         public string LastName { get; set; }
         public string UserName { get; set; }
         public string EmailAddress { get; set; }
+        public float Height { get; set; }
+        public float Weight { get; set; }
+        public float Age { get; set; }
         public bool IsEmailConfirmed { get; set; }
     }
 }
