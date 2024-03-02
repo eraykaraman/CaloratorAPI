@@ -9,7 +9,7 @@ namespace Api.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class NutritionController : ControllerBase
+    public class NutritionController : BaseController
     {
         private readonly IMediator mediator;
 

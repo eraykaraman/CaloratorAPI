@@ -27,6 +27,9 @@ namespace Application.Features.Commands.User.Create
             var existUser = await userRepository.SingleOrDefaultAsync(x => x.EmailAddress == request.EmailAddress);
             if (existUser is not null)
                 throw new DatabaseValidationException("Bu mail adresi başka bir kullanıcı tarafından zaten kullanılıyor!");
+            var existUserName = await userRepository.SingleOrDefaultAsync(x => x.UserName == request.UserName);
+            if (existUserName is not null)
+                throw new DatabaseValidationException("Bu kullanıcı adı adresi başka bir kullanıcı tarafından zaten kullanılıyor!");
 
             var dbUser = mapper.Map<Domain.Models.User>(request);
             dbUser.Password = PasswordEncryptor.Encrpt(dbUser.Password);
