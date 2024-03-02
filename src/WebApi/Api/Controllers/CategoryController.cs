@@ -9,7 +9,7 @@ namespace Api.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class CategoryController : BaseController
     {
         private readonly IMediator mediator;
 
@@ -52,7 +52,6 @@ namespace Api.Controllers
         {
             try
             {
-
                 var result = await mediator.Send(new GetCategoryNutritionsQueryRequest(categoryId));
                 return Ok(result);
             }

@@ -1,6 +1,9 @@
-﻿using Application.Features.Commands.User.Create;
+﻿using Application.Features.Commands.User.ChangePassword;
+using Application.Features.Commands.User.Create;
 using Application.Features.Commands.User.Login;
+using Application.Features.Commands.User.Update;
 using Application.Features.Queries.GetUserDetail;
+using Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +12,7 @@ namespace Api.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
         private readonly IMediator mediator;
 
@@ -26,11 +29,9 @@ namespace Api.Controllers
                 var result = await mediator.Send(new GetUserDetailQueryRequest(id));
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                return StatusCode(StatusCodes.Status500InternalServerError, "Kullanıcı getirilirken bir sorun oluştu.");
-
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
@@ -42,10 +43,9 @@ namespace Api.Controllers
                 var result = await mediator.Send(new GetUserDetailQueryRequest(Guid.Empty, userName));
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                return StatusCode(StatusCodes.Status500InternalServerError, "Kullanıcı getirilirken bir sorun oluştu.");
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
@@ -55,13 +55,11 @@ namespace Api.Controllers
             try
             {
                 var res = await mediator.Send(request);
-
                 return Ok(res);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                return StatusCode(StatusCodes.Status500InternalServerError, "Giriş yapılırken bir sorun oluştu.");
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
@@ -71,13 +69,42 @@ namespace Api.Controllers
             try
             {
                 var guid = await mediator.Send(request);
+                return Ok(guid);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordCommandRequest command)
+        {
+            try
+            {
+                if (!command.UserId.HasValue)
+                    command.UserId = UserId;
+                var guid = await mediator.Send(command);
 
                 return Ok(guid);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
 
-                return StatusCode(StatusCodes.Status500InternalServerError, "Kayıt yapılırken bir sorun oluştu. Lütfen tekrar deneyiniz.");
+        [HttpPost]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommandRequest command)
+        {
+            try
+            {
+                var guid = await mediator.Send(command);
+                return Ok(guid);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
