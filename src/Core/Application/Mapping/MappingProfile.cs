@@ -1,4 +1,6 @@
-﻿using Application.Features.Commands.User.Create;
+﻿using Application.Features.Commands.Nutrition.Create;
+using Application.Features.Commands.Nutrition.Update;
+using Application.Features.Commands.User.Create;
 using Application.Features.Commands.User.Login;
 using Application.Features.Commands.User.Update;
 using Application.Features.Queries.GetCategories;
@@ -31,6 +33,8 @@ namespace Application.Mapping
             CreateMap<User, CreateUserCommandRequest>().ReverseMap();
             CreateMap<User, LoginUserCommandModel>();
             CreateMap<UpdateUserCommandRequest, User>();
+            CreateMap<CreateNutritionCommandRequest, Nutrition>();
+            CreateMap<UpdateNutritionCommandRequest, Nutrition>();
 
 
         }

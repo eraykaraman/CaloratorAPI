@@ -78,13 +78,13 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordCommandRequest command)
+        public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordCommandRequest request)
         {
             try
             {
-                if (!command.UserId.HasValue)
-                    command.UserId = UserId;
-                var guid = await mediator.Send(command);
+                if (!request.UserId.HasValue)
+                    request.UserId = UserId;
+                var guid = await mediator.Send(request);
 
                 return Ok(guid);
             }
@@ -95,11 +95,11 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommandRequest command)
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommandRequest request)
         {
             try
             {
-                var guid = await mediator.Send(command);
+                var guid = await mediator.Send(request);
                 return Ok(guid);
             }
             catch (Exception ex)
