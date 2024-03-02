@@ -30,7 +30,7 @@ namespace Api.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Besin listelenirken bir sorun oluştu.");
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
         [HttpGet]

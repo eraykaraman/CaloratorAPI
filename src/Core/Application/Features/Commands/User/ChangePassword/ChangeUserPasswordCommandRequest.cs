@@ -11,9 +11,9 @@ namespace Application.Features.Commands.User.ChangePassword
     {
         public ChangeUserPasswordCommandRequest(Guid? userId, string oldPassword, string newPassword)
         {
-            UserId=userId;
-            OldPassword=oldPassword;
-            NewPassword=newPassword;
+            this.UserId=userId;
+            this.OldPassword=oldPassword;
+            this.NewPassword=newPassword;
         }
 
         public Guid? UserId { get; set; }

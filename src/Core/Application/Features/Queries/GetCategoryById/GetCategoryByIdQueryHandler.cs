@@ -2,6 +2,7 @@
 using Application.Features.Queries.GetNutritionById;
 using AutoMapper;
 using MediatR;
+using Persistence.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,9 @@ namespace Application.Features.Queries.GetCategoryById
         public async Task<GetCategoryByIdQueryModel> Handle(GetCategoryByIdQueryRequest request, CancellationToken cancellationToken)
         {
             var data = await categoryRepository.GetByIdAsync(request.Id);
+            if (data == null)
+                throw new DatabaseValidationException("Besin bulunamadı!");
+
             var mappedData = mapper.Map<GetCategoryByIdQueryModel>(data);
             return mappedData;
         }
