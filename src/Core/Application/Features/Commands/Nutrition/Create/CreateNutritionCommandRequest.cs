@@ -21,7 +21,7 @@ namespace Application.Features.Commands.Nutrition.Create
                                             float fiber, float cholesterol,
                                             float sodium, float potassium,
                                             float calcium, float vitaminA,
-                                            float vitaminC, float ıron)
+                                            float vitaminC, float ıron, Guid categoryId = default)
         {
             Name=name;
             Amount=amount;
@@ -38,6 +38,7 @@ namespace Application.Features.Commands.Nutrition.Create
             VitaminA=vitaminA;
             VitaminC=vitaminC;
             Iron=ıron;
+            CategoryId=categoryId;
         }
         public string Name { get; set; }
         public string Amount { get; set; }
@@ -54,6 +55,7 @@ namespace Application.Features.Commands.Nutrition.Create
         public float VitaminA { get; set; }
         public float VitaminC { get; set; }
         public float Iron { get; set; }
+        public Guid CategoryId { get; set; }
 
 
     }

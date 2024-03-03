@@ -10,6 +10,7 @@ namespace Domain.Models
     public class Category : BaseEntity
     {
         public string Name { get; set; }
+        public string Picture { get; set; }
         public ICollection<Nutrition> Nutritions { get; set; }
     }
 }

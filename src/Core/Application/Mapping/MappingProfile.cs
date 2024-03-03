@@ -1,4 +1,6 @@
-﻿using Application.Features.Commands.Nutrition.Create;
+﻿using Application.Features.Commands.Category.Create;
+using Application.Features.Commands.Category.Update;
+using Application.Features.Commands.Nutrition.Create;
 using Application.Features.Commands.Nutrition.Update;
 using Application.Features.Commands.User.Create;
 using Application.Features.Commands.User.Login;
@@ -35,6 +37,8 @@ namespace Application.Mapping
             CreateMap<UpdateUserCommandRequest, User>();
             CreateMap<CreateNutritionCommandRequest, Nutrition>();
             CreateMap<UpdateNutritionCommandRequest, Nutrition>();
+            CreateMap<CreateCategoryCommandRequest, Category>();
+            CreateMap<UpdateCategoryCommandRequest,Category>();
 
 
         }

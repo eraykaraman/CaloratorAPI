@@ -11,7 +11,8 @@ namespace Application.Features.Queries.GetCategoryNutritions
     public class GetCategoryNutritionsQueryModel
     {
         public Guid CategoryId { get; set; }
-        public string? CategoryName { get; set; }
+        public string CategoryName { get; set; }
+        public string Picture { get; set; }
         public List<GetNutritionsQueryModel> Nutritions { get; set; }
     }
 }

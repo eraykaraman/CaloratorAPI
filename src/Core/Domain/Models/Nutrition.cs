@@ -24,6 +24,6 @@ namespace Domain.Models
         public float VitaminA { get; set; }
         public float VitaminC { get; set; }
         public float Iron { get; set; }
-        public ICollection<Category> Categories { get; set; }
+        public Guid CategoryId { get; set; }
     }
 }

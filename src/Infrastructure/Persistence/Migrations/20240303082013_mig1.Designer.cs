@@ -12,8 +12,8 @@ using Persistence.Context;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240221122304_initmig")]
-    partial class initmig
+    [Migration("20240303082013_mig1")]
+    partial class mig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,21 +24,6 @@ namespace Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CategoryNutrition", b =>
-                {
-                    b.Property<Guid>("CategoriesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("NutritionsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("CategoriesId", "NutritionsId");
-
-                    b.HasIndex("NutritionsId");
-
-                    b.ToTable("CategoryNutrition");
-                });
 
             modelBuilder.Entity("Domain.Models.Category", b =>
                 {
@@ -85,6 +70,9 @@ namespace Persistence.Migrations
 
                     b.Property<float>("Carbohydrate")
                         .HasColumnType("real");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<float>("Cholesterol")
                         .HasColumnType("real");
@@ -135,6 +123,8 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Nutritions");
                 });
 
@@ -143,6 +133,9 @@ namespace Persistence.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<float>("Age")
+                        .HasColumnType("real");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -157,6 +150,9 @@ namespace Persistence.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Height")
+                        .HasColumnType("real");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -179,24 +175,26 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<float>("Weight")
+                        .HasColumnType("real");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("CategoryNutrition", b =>
+            modelBuilder.Entity("Domain.Models.Nutrition", b =>
                 {
                     b.HasOne("Domain.Models.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoriesId")
+                        .WithMany("Nutritions")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.HasOne("Domain.Models.Nutrition", null)
-                        .WithMany()
-                        .HasForeignKey("NutritionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            modelBuilder.Entity("Domain.Models.Category", b =>
+                {
+                    b.Navigation("Nutritions");
                 });
 #pragma warning restore 612, 618
         }
