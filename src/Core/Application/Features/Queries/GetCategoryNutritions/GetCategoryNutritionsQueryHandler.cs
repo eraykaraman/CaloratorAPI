@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,10 +30,13 @@ namespace Application.Features.Queries.GetCategoryNutritions
         {
             var query = nutritionRepository.AsQueryable();
             var data = await categoryRepository.GetByIdAsync(request.CategoryId);
+            if (data is null)
+                throw new DatabaseValidationException("Kategori bulunamadı!");
+
 
             if (request?.CategoryId != null && request.CategoryId != Guid.Empty)
             {
-                query = query.Where(nutrition => nutrition.Categories.Any(category => category.Id == request.CategoryId));
+                query = query.Where(nutrition => nutrition.CategoryId == request.CategoryId);
             }
 
             var result = await query.ToListAsync();
@@ -42,6 +46,7 @@ namespace Application.Features.Queries.GetCategoryNutritions
             return new GetCategoryNutritionsQueryModel
             {
                 CategoryId = request.CategoryId,
+                Picture = data.Picture,
                 CategoryName = data.Name,
                 Nutritions = mapper.Map<List<GetNutritionsQueryModel>>(result)
             };

@@ -66,6 +66,11 @@ namespace Application.Features.Commands.Nutrition.Update
             RuleFor(x => x.Iron)
                 .GreaterThanOrEqualTo(0)
                 .WithMessage("Demir negatif olmamalıdır.");
+
+            RuleFor(x => x.CategoryId)
+                .NotNull()
+                .NotEmpty()
+                .WithMessage("Kategori boş olamaz.");
         }
     }
 }

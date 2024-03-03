@@ -10,5 +10,6 @@ namespace Application.Features.Queries.GetCategories
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public string Picture { get; set; }
     }
 }

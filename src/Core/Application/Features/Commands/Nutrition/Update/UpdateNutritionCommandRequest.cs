@@ -13,7 +13,7 @@ namespace Application.Features.Commands.Nutrition.Update
         {
             
         }
-        public UpdateNutritionCommandRequest(Guid ıd, string name, string amount, string picture, float calorie, float carbohydrate, float protein, float fat, float fiber, float cholesterol, float sodium, float potassium, float calcium, float vitaminA, float vitaminC, float ıron)
+        public UpdateNutritionCommandRequest(Guid ıd, string name, string amount, string picture, float calorie, float carbohydrate, float protein, float fat, float fiber, float cholesterol, float sodium, float potassium, float calcium, float vitaminA, float vitaminC, float ıron, Guid categoryId)
         {
             Id=ıd;
             Name=name;
@@ -31,6 +31,7 @@ namespace Application.Features.Commands.Nutrition.Update
             VitaminA=vitaminA;
             VitaminC=vitaminC;
             Iron=ıron;
+            CategoryId=categoryId;
         }
 
         public Guid Id { get; set; }
@@ -49,5 +50,6 @@ namespace Application.Features.Commands.Nutrition.Update
         public float VitaminA { get; set; }
         public float VitaminC { get; set; }
         public float Iron { get; set; }
+        public Guid CategoryId { get; set; }
     }
 }

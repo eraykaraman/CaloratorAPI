@@ -12,7 +12,7 @@ using Persistence.Context;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240227163333_mig2")]
+    [Migration("20240303090058_mig2")]
     partial class mig2
     {
         /// <inheritdoc />
@@ -24,21 +24,6 @@ namespace Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CategoryNutrition", b =>
-                {
-                    b.Property<Guid>("CategoriesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("NutritionsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("CategoriesId", "NutritionsId");
-
-                    b.HasIndex("NutritionsId");
-
-                    b.ToTable("CategoryNutrition");
-                });
 
             modelBuilder.Entity("Domain.Models.Category", b =>
                 {
@@ -56,6 +41,10 @@ namespace Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Picture")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -85,6 +74,9 @@ namespace Persistence.Migrations
 
                     b.Property<float>("Carbohydrate")
                         .HasColumnType("real");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<float>("Cholesterol")
                         .HasColumnType("real");
@@ -134,6 +126,8 @@ namespace Persistence.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Nutritions");
                 });
@@ -193,19 +187,18 @@ namespace Persistence.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("CategoryNutrition", b =>
+            modelBuilder.Entity("Domain.Models.Nutrition", b =>
                 {
                     b.HasOne("Domain.Models.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoriesId")
+                        .WithMany("Nutritions")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.HasOne("Domain.Models.Nutrition", null)
-                        .WithMany()
-                        .HasForeignKey("NutritionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            modelBuilder.Entity("Domain.Models.Category", b =>
+                {
+                    b.Navigation("Nutritions");
                 });
 #pragma warning restore 612, 618
         }
