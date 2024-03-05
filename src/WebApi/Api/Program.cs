@@ -1,6 +1,7 @@
 using FluentValidation.AspNetCore;
 using Application.Extensions;
-using Persistence.Extensions; 
+using Persistence.Extensions;
+using Api.Infrastructure.Extensions;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,9 +15,17 @@ builder.Services
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.ConfigureAuth(builder.Configuration);
 builder.Services.AddApplicationRegistration();
 builder.Services.AddInfrastructureRegistration(builder.Configuration);
+
+// Add Cors
+builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+{
+    builder.AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+}));
 
 var app = builder.Build();
 
@@ -29,7 +38,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.ConfigureExceptionHandling(app.Environment.IsDevelopment());
+
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseCors("MyPolicy");
 
 app.MapControllers();
 
