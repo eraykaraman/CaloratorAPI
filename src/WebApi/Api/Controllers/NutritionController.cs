@@ -8,6 +8,8 @@ using Application.Features.Commands.User.Create;
 using Application.Features.Commands.Nutrition.Create;
 using Application.Features.Commands.Nutrition.Update;
 using Application.Features.Commands.Nutrition.Delete;
+using Microsoft.AspNetCore.Authorization;
+using Application.Features.Queries.GetNutritionsByMostSearch;
 
 namespace Api.Controllers
 {
@@ -21,7 +23,6 @@ namespace Api.Controllers
         {
             this.mediator = mediator;
         }
-
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetNutritionById(Guid id)
@@ -52,6 +53,20 @@ namespace Api.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetMostWantedNutritions()
+        {
+            try
+            {
+                var nutritions = await mediator.Send(new GetNutritionsByMostSearchQueryRequest());
+                return Ok(nutritions);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Search([FromQuery] GetNutritionsByNameQueryRequest request)
         {
             try
@@ -65,6 +80,7 @@ namespace Api.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateNutritionCommandRequest request)
         {
@@ -79,6 +95,8 @@ namespace Api.Controllers
             }
         }
 
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Update([FromBody] UpdateNutritionCommandRequest request)
         {
@@ -92,6 +110,8 @@ namespace Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Delete([FromBody] DeleteNutritionCommandRequest request)
         {

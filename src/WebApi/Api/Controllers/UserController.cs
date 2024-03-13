@@ -5,6 +5,7 @@ using Application.Features.Commands.User.Update;
 using Application.Features.Queries.GetUserDetail;
 using Domain.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -77,6 +78,8 @@ namespace Api.Controllers
             }
         }
 
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordCommandRequest request)
         {
@@ -94,6 +97,8 @@ namespace Api.Controllers
             }
         }
 
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommandRequest request)
         {
