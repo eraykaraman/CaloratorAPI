@@ -6,6 +6,7 @@ using Application.Features.Queries.GetCategories;
 using Application.Features.Queries.GetCategoryById;
 using Application.Features.Queries.GetCategoryNutritions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -65,6 +66,8 @@ namespace Api.Controllers
             }
         }
 
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCategoryCommandRequest request)
         {
@@ -79,6 +82,8 @@ namespace Api.Controllers
             }
         }
 
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Update([FromBody] UpdateCategoryCommandRequest request)
         {
@@ -93,6 +98,8 @@ namespace Api.Controllers
             }
         }
 
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Delete([FromBody] DeleteCategoryCommandRequest request)
         {
