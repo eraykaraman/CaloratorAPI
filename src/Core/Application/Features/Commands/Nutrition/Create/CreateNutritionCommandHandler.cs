@@ -28,7 +28,7 @@ namespace Application.Features.Commands.Nutrition.Create
             var nutrition = mapper.Map<Domain.Models.Nutrition>(request);
             var category = await categoryRepository.GetByIdAsync(request.CategoryId);
             if(category == null)
-                throw new DatabaseValidationException("Kategori bulunamadı! Var olmayan kategoriye besin eklemezsiniz.");
+                throw new DatabaseValidationException("Kategori bulunamadı! Var olmayan kategoriye besin ekleyemezsiniz.");
             await nutritionRepository.AddAsync(nutrition);
             return nutrition.Id;
         }
