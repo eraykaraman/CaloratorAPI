@@ -28,6 +28,7 @@ namespace Application.Features.Queries.GetNutritionByName
                   Id = i.Id,
                   NutritionName = i.Name,
                   Picture = i.Picture,
+                  Amount = i.Amount,
               });
 
             return await result.ToListAsync(cancellationToken);
