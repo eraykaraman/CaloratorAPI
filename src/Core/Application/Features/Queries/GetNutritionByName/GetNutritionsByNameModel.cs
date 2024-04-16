@@ -11,5 +11,6 @@ namespace Application.Features.Queries.GetNutritionByName
         public Guid Id { get; set; }
         public string NutritionName { get; set; }
         public string Picture { get; set; }
+        public string Amount { get; set; }
     }
 }
